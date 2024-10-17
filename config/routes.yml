@@ -1,0 +1,9 @@
+# @see https://devdocs.prestashop.com/1.7/modules/concepts/controllers/admin-controllers/#how-to-map-an-action-of-your-controller-to-a-uri
+
+rensrimprimirfactura_factura_route:
+  path: /rensrimprimirfactura/{orderId}/
+  methods: [GET]
+  defaults:
+    _controller: 'RensrImprimirFactura\Controller\Admin\TFacturaController::indexAction'
+  requirements:
+    orderId: \d+

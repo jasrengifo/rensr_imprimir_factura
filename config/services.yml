@@ -1,0 +1,4 @@
+services:
+  RensrImprimirFactura\Controller\Admin\TFacturaController:
+    class: RensrImprimirFactura\Controller\Admin\TFacturaController
+    public: true
