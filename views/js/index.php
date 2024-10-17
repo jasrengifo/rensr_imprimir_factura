@@ -1,0 +1,2 @@
+<?php
+// Forbidden direct access

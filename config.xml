@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+        <module>
+            <name>rensr_imprimir_factura</name>
+            <displayName><![CDATA[Imprimir factura con modelo pre-impreso]]></displayName>
+            <version><![CDATA[1.0.0]]></version>
+            <description><![CDATA[Módulo personalizado para imprimir facturas con un modelo pre-impreso]]></description>
+            <author><![CDATA[Trigenius]]></author>
+            <tab><![CDATA[front_office_features]]></tab>
+            <confirmUninstall><![CDATA[Are you sure you want to uninstall?]]></confirmUninstall>
+            <is_configurable>1</is_configurable>
+            <need_instance>0</need_instance>
+            <ps_versions_compliancy>
+                <min>1.7</min>
+                <max>_PS_VERSION_</max>
+            </ps_versions_compliancy>
+        </module>
+    

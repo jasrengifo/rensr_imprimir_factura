@@ -1,0 +1,15 @@
+{
+  "name": "prestashop/rensr_imprimir_factura",
+  "description": "Módulo para imprimir facturas en PrestaShop",
+  "type": "prestashop-module",
+  "license": "AFL-3.0",
+  "require": {
+    "php": ">=7.2",
+    "composer/installers": "~1.0"
+  },
+  "autoload": {
+    "psr-4": {
+      "RensrImprimirFactura\\": "src/"
+    }
+  }
+}
