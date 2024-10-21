@@ -25,7 +25,7 @@
             {
                 $this->name = 'rensr_imprimir_factura';
                 $this->tab = 'front_office_features';
-                $this->version = '1.0.0';
+                $this->version = '1.0.1';
                 $this->author = 'rensr.pt';
                 $this->need_instance = 0;
                 $this->ps_versions_compliancy = ['min' => '1.7', 'max' => _PS_VERSION_];
@@ -62,6 +62,11 @@
                     return;
                 }
 
+                $this->context->controller->addJS('modules/' . $this->name . '/views/js/main.js');
+
+                //agregar css
+                $this->context->controller->addCSS($this->_path . 'views/css/main.css');
+
             }
 
             public function hookActionOrderGridDefinitionModifier(array $params): void
@@ -73,8 +78,10 @@
 
                 /** @var RowActionCollectionInterface $actionsCollection */
                 $actionsCollection = $this->getActionsColumn($orderGridDefinition)->getOptions()['actions'];
+
+
                 $actionsCollection->add(
-                // mark order is just an example of some custom action
+
                     (new LinkRowAction('facturaa'))
                         ->setName($this->trans('Impr Factura', [], 'Modules.RensrImprimirFactura.Admin'))
                         ->setIcon('picture_as_pdf')
@@ -82,14 +89,16 @@
                             'route' => 'rensrimprimirfactura_factura_route',
                             'route_param_name' => 'orderId',
                             'route_param_field' => 'id_order',
-                            // use this if you want to show the action inline instead of adding it to dropdown
                             'use_inline_display' => true,
                             'target' => '_blank',
+                            'attr' => [
+                                'class' => 'descargar-factura', //
+                            ],
                         ])
                 );
-                // Button is not working by default, because SubmitRowActionExtension component is not loaded in Orders grid javascript part.
-                // To replace that behavior there is an example of custom javascript in views/orders-listing.js
-                // Adding grid extension in non-compiled javascript is not supported yet, we hope to fix it in future.
+
+
+
             }
 
             private function getActionsColumn($gridDefinition)
@@ -143,6 +152,8 @@
             }
 
 
+
+
             private function formatearNFactura($number) {
                 // Obtén el prefijo de la factura
                 $prefijo = Configuration::get('RENSR_PRE_FACTURA');
@@ -163,7 +174,7 @@
                 return $prefijo . "" . $n_factura;
             }
 
-            private function ObtenerFactura($id_order)
+            public function ObtenerFactura($id_order)
             {
                 $sql = "SELECT * FROM "._DB_PREFIX_."rensr_factura WHERE id_order = ".(int)$id_order.";";
                 return Db::getInstance()->executeS($sql);

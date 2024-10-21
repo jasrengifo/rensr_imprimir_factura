@@ -2,7 +2,7 @@
 
 rensrimprimirfactura_factura_route:
   path: /rensrimprimirfactura/{orderId}/
-  methods: [GET]
+  methods: [GET, POST]
   defaults:
     _controller: 'RensrImprimirFactura\Controller\Admin\TFacturaController::indexAction'
   requirements:

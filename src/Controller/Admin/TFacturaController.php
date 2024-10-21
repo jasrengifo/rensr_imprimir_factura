@@ -20,6 +20,15 @@ class TFacturaController extends FrameworkBundleAdminController
         // Lógica para manejar la acción
         $module = LegacyModule::getInstanceByName('rensr_imprimir_factura');
 
+        if(isset($_POST['check']) && $_POST['check']==1){
+
+            if($module->ObtenerFactura($_POST['id_cart'])!=false){
+                return new Response("true", 200, []);
+            }else{
+                return new Response("false", 200, []);
+            }
+        }
+
 
 
         return new Response($module->imprimirFactura($orderId), 200, [
