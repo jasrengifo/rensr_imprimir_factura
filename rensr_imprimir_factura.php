@@ -25,7 +25,7 @@
             {
                 $this->name = 'rensr_imprimir_factura';
                 $this->tab = 'front_office_features';
-                $this->version = '1.0.1';
+                $this->version = '1.0.2';
                 $this->author = 'rensr.pt';
                 $this->need_instance = 0;
                 $this->ps_versions_compliancy = ['min' => '1.7', 'max' => _PS_VERSION_];
@@ -190,6 +190,7 @@
                 $ciudad = Configuration::get('RENSR_CIUDAD');
                 $pre_factura = Configuration::get('RENSR_PRE_FACTURA');
                 $n_factura = (int)Configuration::get('RENSR_N_FACTURA');
+                $fecha_factura = Configuration::get('RENSR_FECHA_FACTURA');
 
 
                 // Construir la query con todas las variables
@@ -206,7 +207,7 @@
                          '".$ciudad."', 
                          '".$pre_factura."', 
                          '".$n_factura."', 
-                         NOW())";
+                         '".$fecha_factura."');";
 
                 $insert = Db::getInstance()->execute($sql);
 
@@ -336,6 +337,7 @@
                     $localidad = strval(Tools::getValue('RENSR_LOCALIDAD'));
                     $ciudad = strval(Tools::getValue('RENSR_CIUDAD'));
                     $pre_factura = strval(Tools::getValue('RENSR_PRE_FACTURA'));
+                    $fecha_factura = strval(Tools::getValue('RENSR_FECHA_FACTURA'));
                     $n_factura = intval(Tools::getValue('RENSR_N_FACTURA'));
                     $chars_factura = intval(Tools::getValue('RENSR_CHARS_FACTURA'));
 
@@ -347,6 +349,7 @@
                     Configuration::updateValue('RENSR_LOCALIDAD', $localidad);
                     Configuration::updateValue('RENSR_CIUDAD', $ciudad);
                     Configuration::updateValue('RENSR_PRE_FACTURA', $pre_factura);
+                    Configuration::updateValue('RENSR_FECHA_FACTURA', $fecha_factura);
                     Configuration::updateValue('RENSR_N_FACTURA', $n_factura);
                     Configuration::updateValue('RENSR_CHARS_FACTURA', $chars_factura);
 
@@ -416,6 +419,13 @@
                             'required' => true
                         ],
                         [
+                            'type' => 'date',
+                            'label' => $this->l('Fecha nuevas facturas'),
+                            'name' => 'RENSR_FECHA_FACTURA',
+                            'size' => 20,
+                            'required' => true
+                        ],
+                        [
                             'type' => 'text',
                             'label' => $this->l('N Actual de factura'),
                             'name' => 'RENSR_N_FACTURA',
@@ -456,6 +466,7 @@
                 $helper->fields_value['RENSR_LOCALIDAD'] = Configuration::get('RENSR_LOCALIDAD');
                 $helper->fields_value['RENSR_CIUDAD'] = Configuration::get('RENSR_CIUDAD');
                 $helper->fields_value['RENSR_PRE_FACTURA'] = Configuration::get('RENSR_PRE_FACTURA');
+                $helper->fields_value['RENSR_FECHA_FACTURA'] = Configuration::get('RENSR_FECHA_FACTURA');
                 $helper->fields_value['RENSR_N_FACTURA'] = Configuration::get('RENSR_N_FACTURA');
                 $helper->fields_value['RENSR_CHARS_FACTURA'] = Configuration::get('RENSR_CHARS_FACTURA');
 
