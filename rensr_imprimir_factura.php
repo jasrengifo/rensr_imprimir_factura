@@ -25,7 +25,7 @@
             {
                 $this->name = 'rensr_imprimir_factura';
                 $this->tab = 'front_office_features';
-                $this->version = '1.0.2';
+                $this->version = '1.0.3';
                 $this->author = 'rensr.pt';
                 $this->need_instance = 0;
                 $this->ps_versions_compliancy = ['min' => '1.7', 'max' => _PS_VERSION_];
@@ -290,9 +290,14 @@
 
                 $pdf = new PDFF();
 
-
-
                 $factura = $factura[0];
+
+                if($invoice_address->dni=='' || $invoice_address->dni==null) {
+                    $nif = $invoice_address->vat_number;
+                }else {
+                    $nif = $invoice_address->dni;
+                }
+
                 $array = Array(
                     "nombre_fiscal" => utf8_decode($factura['nombre_fiscal']),
                     "nif" => utf8_decode($factura['nif']),
@@ -314,7 +319,7 @@
                     "cliente_direccion" => utf8_decode(mb_strtoupper($invoice_address->address1, 'UTF-8')),
                     "cliente_cod_postal" => utf8_decode($invoice_address->postcode),
                     "cliente_ciudad" => utf8_decode(mb_strtoupper($invoice_address->city, 'UTF-8')),
-                    "cliente_NIF" => utf8_decode(mb_strtoupper($invoice_address->vat_number, 'UTF-8')),
+                    "cliente_NIF" => utf8_decode(mb_strtoupper($nif, 'UTF-8')),
                     );
 
                 $pdf->AddPage();
